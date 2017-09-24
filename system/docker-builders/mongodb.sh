@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-source ../variables/mongodb.properties
-source ../utilities/utilities.sh
+RUN_PATH="$(cd "$(dirname "${0}")" && pwd)"
+
+source ${RUN_PATH}/../variables/mongodb.properties
+source ${RUN_PATH}/../utilities/utilities.sh
 
 function main {
-    PATH_DOCKERFILE=$(getActualPath)"/../dockerfiles/mongodb/"
+    PATH_DOCKERFILE=${RUN_PATH}"/../dockerfiles/mongodb/"
 
     buildDockerImage ${PATH_DOCKERFILE} ${DEFAULT_TAG}
 }

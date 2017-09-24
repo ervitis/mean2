@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
-source ../variables/mongodb.properties
-source ../utilities/utilities.sh
+RUN_PATH="$(cd "$(dirname "${0}")" && pwd)"
+
+source ${RUN_PATH}/../variables/mongodb.properties
+source ${RUN_PATH}/../utilities/utilities.sh
 
 function main {
     dockerImage=$(getDockerImageByName ${DEFAULT_NAME})
-    runDockerImage ${CONTAINER_NAME} ${dockerImage}
+    runDockerImage ${CONTAINER_NAME} ${dockerImage} 2>/dev/null
+    local result=${?}
+
+    if [[ ${result} -gt 0 ]]; then
+        # The container is created so we need to start it
+        startDockerContainer ${CONTAINER_NAME} 2>/dev/null
+    fi
 }
 
 main
