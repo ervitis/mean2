@@ -1,0 +1,19 @@
+{
+  "name": "mean2",
+  "version": "1.0.0",
+  "description": "API Restful",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ervitis/mean2.git"
+  },
+  "author": "ervitis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ervitis/mean2/issues"
+  },
+  "homepage": "https://github.com/ervitis/mean2#readme"
+}
