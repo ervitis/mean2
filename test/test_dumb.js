@@ -8,12 +8,30 @@ const expect = require('chai').expect;
 chai.use(chaiHttp);
 
 describe('GET /pruebas', () => {
-    it('should get a welcome message', (done) => {
+    it('should response with a 200 code', (done) => {
+        chai.request(app)
+            .get('/pruebas')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+
+                done()
+            })
+    });
+
+    it('should return a json object', (done) => {
         chai.request(app)
             .get('/pruebas')
             .end((err, res) => {
                 expect(res).to.be.json;
-                expect(res).to.have.status(200);
+
+                done()
+            })
+    });
+
+    it('should get a welcome message', (done) => {
+        chai.request(app)
+            .get('/pruebas')
+            .end((err, res) => {
                 expect(res.body.message).to.be.eql('Welcome');
 
                 done();
