@@ -7,7 +7,10 @@ source ${RUN_PATH}/../utilities/utilities.sh
 
 function main {
     dockerImage=$(getDockerImageByName ${DEFAULT_NAME})
-    runDockerImage ${CONTAINER_NAME} ${dockerImage} 2>/dev/null
+    runDockerImage ${CONTAINER_NAME} \
+                   ${dockerImage} \
+                   ${MONGODB_PORT_IN} \
+                   ${MONGODB_PORT_LISTENING}
     local result=${?}
 
     if [[ ${result} -gt 0 ]]; then
