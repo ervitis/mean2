@@ -21,6 +21,8 @@ function main {
             startDockerContainer ${CONTAINER_NAME} &> /dev/null
         fi
     fi
+
+    printDockerInfoByContainerName ${CONTAINER_NAME}
 }
 
 main

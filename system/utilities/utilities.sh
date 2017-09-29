@@ -41,3 +41,11 @@ function getDockerContainerByName {
 
     echo $(docker ps | grep "${nameContainer}" | tail -1 | awk -F ' ' '{print $1}')
 }
+
+function printDockerInfoByContainerName {
+    nameContainer=$1
+
+    echo "Docker INFO is running"
+    echo $(docker ps | head -n 1)
+    echo $(docker ps | grep "${nameContainer}" | tail -1)
+}
