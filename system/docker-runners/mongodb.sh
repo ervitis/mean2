@@ -10,12 +10,16 @@ function main {
     runDockerImage ${CONTAINER_NAME} \
                    ${dockerImage} \
                    ${MONGODB_PORT_IN} \
-                   ${MONGODB_PORT_LISTENING}
+                   ${MONGODB_PORT_LISTENING} 2>/dev/null
     local result=${?}
 
     if [[ ${result} -gt 0 ]]; then
-        # The container is created so we need to start it
-        startDockerContainer ${CONTAINER_NAME} 2>/dev/null
+        # if the container is not running and
+        # the container is created so we need to start it
+        result=$(getDockerContainerByName ${CONTAINER_NAME})
+        if [[ -z ${result} ]]; then
+            startDockerContainer ${CONTAINER_NAME} &> /dev/null
+        fi
     fi
 }
 
