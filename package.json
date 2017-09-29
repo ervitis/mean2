@@ -31,6 +31,7 @@
     "mongoose-pagination": "^1.0.0"
   },
   "devDependencies": {
+    "mockgoose": "^7.3.3",
     "nodemon": "^1.12.1"
   }
 }
