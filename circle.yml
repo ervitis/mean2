@@ -5,4 +5,4 @@ machine:
 test:
   pre:
     - bash system/docker-builders/mongodb.sh
-    - bash system/docker-runners/mongodb.sh
+    - bash system/docker-runners/mongodb.sh &
