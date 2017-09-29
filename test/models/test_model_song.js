@@ -3,11 +3,11 @@
 const mocha = require('mocha');
 const mongoose = require('mongoose');
 const expect = require('chai').expect;
-const AlbumSchema = require('../../models/album');
+const SongSchema = require('../../models/song');
 
-describe('testing album model schema', () => {
+describe('testing song model schema', () => {
     it('should be a schema object', (done) => {
-        AlbumSchema.prototype === mongoose.Schema.prototype;
+        SongSchema.prototype === mongoose.Schema.prototype;
 
         done();
     })
