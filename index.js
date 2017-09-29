@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 const port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://127.0.0.1:32512/mean2', (err, res) => {
+mongoose.createConnection('mongodb://127.0.0.1:32512/mean2', (err, res) => {
    if (err) {
        throw err;
    } else {
