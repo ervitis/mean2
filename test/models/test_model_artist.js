@@ -10,5 +10,14 @@ describe('testing artist model schema', () => {
         ArtistSchema.prototype === mongoose.Schema.prototype;
 
         done();
+    });
+
+    it('should have these properties: name, description, image', (done) => {
+        const Artist = require('../../models/artist');
+        const artist = new Artist({name: 'dumb artist', description: 'dumb', image: 'photo1'});
+
+        expect(artist.name).to.be.eql('dumb artist');
+
+        done();
     })
 });

@@ -19,7 +19,6 @@ describe('testing album model schema', () => {
         const album = new Album({title: 'dumb album', description: 'album', year: 1997, image: 'photo', artist: artist});
 
         expect(album.title).to.be.eql('dumb album');
-        expect(Object.keys(album).length).to.be.eql(4);
 
         done();
     })

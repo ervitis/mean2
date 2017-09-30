@@ -22,7 +22,6 @@ describe('testing song model schema', () => {
         const song = new Song({number: '1', name: 'dumb song name', duration: '3 min', file: 'path/file', album: album});
 
         expect(song.name).to.be.eql('dumb song name');
-        expect(ObjectUtilities.size(song)).to.be.eql(4);
 
         done();
     })
