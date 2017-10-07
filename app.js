@@ -12,6 +12,10 @@ app.use(bodyParser.json());
 
 app.use('/api', UserRoute);
 
+app.use((err, req, res, next) => {
+    res.status(400).json(err);
+});
+
 app.get('/pruebas', (req, res) => {
     res.status(200).send({message: 'Welcome'})
 });

@@ -12,7 +12,7 @@ function save(req, res) {
         image: req.params.image
     });
 
-    res.status(200).send({user: user})
+    res.status(200).json(user)
 }
 
 module.exports = {
