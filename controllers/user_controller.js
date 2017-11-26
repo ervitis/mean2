@@ -9,6 +9,7 @@ function save(req, res) {
         surname: req.params.surname,
         email: req.params.email,
         role: req.params.role,
+        password: req.params.password,
         image: req.params.image
     });
 
