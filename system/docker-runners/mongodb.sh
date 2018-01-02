@@ -10,7 +10,8 @@ function main {
     runDockerImage ${CONTAINER_NAME} \
                    ${dockerImage} \
                    ${MONGODB_PORT_IN} \
-                   ${MONGODB_PORT_LISTENING} 2>/dev/null
+                   ${MONGODB_PORT_LISTENING} \
+                   ${MONGODB_VOLUMEN} 2>/dev/null
     local result=${?}
 
     if [[ ${result} -gt 0 ]]; then

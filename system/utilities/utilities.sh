@@ -20,8 +20,9 @@ function runDockerImage {
     imageId=${2}
     portIn=${3}
     portListening=${4}
+    volumen=${5}
 
-    docker run --name ${name} -p ${portIn}:${portListening} -P ${imageId}
+    docker run --name ${name} -p ${portIn}:${portListening} -v ${volumen} -P ${imageId}
 }
 
 function startDockerContainer {
