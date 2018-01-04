@@ -79,6 +79,26 @@ function updateUser(req, res) {
     }
 }
 
+function uploadImage(req, res) {
+    const userId = req.params.id;
+    const fileName = 'No file';
+
+    if (req.files) {
+        const filePath = req.files.image.path;
+        const fileName = filePath.split('/')[4];
+
+        console.log(fileName);
+
+        if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
+            updateUserById(userId, {image: fileName}, res)
+        } else {
+            res.status(200).send({message: 'Extension not supported'})
+        }
+    } else {
+        res.status(200).send({message: 'No file uploaded'})
+    }
+}
+
 function updateUserById(userId, updateUser, res) {
     User.findByIdAndUpdate(userId, updateUser, (err, userUpdated) => {
         if (err) {
@@ -96,5 +116,6 @@ function updateUserById(userId, updateUser, res) {
 module.exports = {
     saveUser,
     loginUser,
-    updateUser
+    updateUser,
+    uploadImage
 };
