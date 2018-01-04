@@ -1,26 +1,35 @@
 'use strict';
 
+const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
 
-function save(req, res) {
-    const user = new User({
-        name: req.body.name,
-        surname: req.body.surname,
-        email: req.body.email,
-        role: req.body.role,
-        password: req.body.password,
-        image: req.body.image
+function saveUser(req, res) {
+    const params = req.body;
+    const user = new User();
+
+    bcrypt.hash(params.password, null, null, (err, hash) => {
+        user.password = hash;
+        user.name = params.name;
+        user.surname = params.surname;
+        user.email = params.email;
+        user.rol = params.rol;
+        user.image = params.image;
+
+        user.save((err, userStored) => {
+            if (err) {
+                res.status(500).send({message: 'Error al guardar'})
+            } else {
+                if (! userStored) {
+                    res.status(404).send({message: 'No se ha registrado'})
+                } else {
+                    res.status(200).send({user: userStored})
+                }
+            }
+        });
     });
 
-    console.log('Saving ' + user);
-
-    user.save().then((err) => {
-        res.status(500).json(err)
-    });
-
-    res.status(200).json({'response': 'ok', 'user': user})
 }
 
 module.exports = {
-    save
+    saveUser
 };

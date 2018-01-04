@@ -7,7 +7,7 @@ const mockgoose = new Mockgoose(mongoose);
 
 before((done) => {
     mockgoose.prepareStorage().then(() => {
-        mongoose.createConnection('mongodb://127.0.0.1:32512/testing');
+        mongoose.createConnection('mongodb://127.0.0.1:27017/testing');
 
         mongoose.connection
             .on('open', () => done())

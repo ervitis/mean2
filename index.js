@@ -8,18 +8,16 @@ const propertiesConnections = {
     reconnectInterval: 60000
 };
 const mongodbHost = '127.0.0.1';
-const mongodbPort = 32512;
+const mongodbPort = 27017;
 const mongodbCollection = 'mean2';
 const mongodbConnectionURL = mongodbHost + ':' + mongodbPort + '/' + mongodbCollection;
 
-mongoose.createConnection('mongodb://' + mongodbConnectionURL, propertiesConnections, (err, res) => {
-   if (err) {
-       throw err;
-   } else {
-       console.log("connected to " + mongodbConnectionURL);
+mongoose.connect('mongodb://' + mongodbConnectionURL, (err, res) => {
+    if (err) throw err;
 
-       app.listen(port, () => {
-           console.log("running in http://localhost:" + port)
-       })
-   }
+    console.log('Connected to ' + mongodbConnectionURL);
+
+    app.listen(port, () => {
+        console.log('Server listening')
+    })
 });

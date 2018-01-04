@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 describe('POST /user/save', () => {
     let apiPath = '/api/user/save';
 
-    let fakeData = {
+    const fakeData = {
         name: 'fake1',
         surname: 'ekaf1',
         email: 'fake1@fake.com',
@@ -25,9 +25,8 @@ describe('POST /user/save', () => {
             .send(fakeData)
             .end((err, res) => {
                 expect(res).to.have.status(200);
-
-                done()
-            })
+            });
+        done()
     });
 
     it('should return a json object', (done) => {
@@ -36,9 +35,8 @@ describe('POST /user/save', () => {
             .send(fakeData)
             .end((err, res) => {
                 expect(res).to.be.json;
-
-                done()
-            })
+            });
+        done()
     });
 
     it('should get a 400 code if some parameter is empty', (done) => {
@@ -55,8 +53,7 @@ describe('POST /user/save', () => {
             .send(wrongData)
             .end((err, res) => {
                 expect(res).to.have.status(400);
-
-                done();
-            })
+            });
+        done()
     })
 });

@@ -5,8 +5,8 @@ const UserController = require('../controllers/user_controller');
 const validate = require('express-validation');
 const userValidators = require('../models/validators/user');
 
-const api = express.Router();
+const apiUser = express.Router();
 
-api.post('/user/save', validate(userValidators), UserController.save);
+apiUser.post('/user/save', validate(userValidators), UserController.saveUser);
 
-module.exports = api;
+module.exports = apiUser;

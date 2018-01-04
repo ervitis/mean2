@@ -22,18 +22,19 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "connect-multiparty": "^2.0.0",
-    "express": "^4.15.4",
+    "connect-multiparty": "^2.1.0",
+    "express": "^4.16.2",
     "express-validation": "^1.0.2",
-    "joi": "^11.1.1",
+    "joi": "^11.4.0",
     "jwt-simple": "^0.5.1",
     "mocha": "^3.5.3",
-    "moment": "^2.18.1",
-    "mongoose": "^4.11.12",
-    "mongoose-pagination": "^1.0.0"
+    "moment": "^2.20.1",
+    "mongoose": "^4.13.8",
+    "mongoose-pagination": "^1.0.0",
+    "q": "^1.5.1"
   },
   "devDependencies": {
     "mockgoose": "^7.3.3",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.14.7"
   }
 }

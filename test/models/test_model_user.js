@@ -3,11 +3,11 @@
 const mocha = require('mocha');
 const mongoose = require('mongoose');
 const expect = require('chai').expect;
-const UserSchema = require('../../models/user');
+const User = require('../../models/user');
 
 describe('testing user model schema', () => {
     it('should be a schema object', (done) => {
-        UserSchema.prototype === mongoose.Schema.prototype;
+        User.prototype === mongoose.Schema.prototype;
 
         done();
     });
@@ -22,7 +22,7 @@ describe('testing user model schema', () => {
             image: 'fake.png'
         };
 
-        const user = new UserSchema(fakeData);
+        const user = new User(fakeData);
         user.save();
 
         const myUser = mongoose.model('User').findOne({'name': fakeData.name});
