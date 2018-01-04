@@ -60,7 +60,41 @@ function loginUser(req, res) {
     })
 }
 
+function updateUser(req, res) {
+    const userId = req.params.id;
+    const update = req.body;
+
+    if (update.password) {
+        bcrypt.hash(update.password, null, null, (err, hash) => {
+            if (err) {
+                res.status(500).send({err})
+            } else {
+                update.password = hash;
+
+                updateUserById(userId, update, res)
+            }
+        });
+    } else {
+        updateUserById(userId, update, res)
+    }
+}
+
+function updateUserById(userId, updateUser, res) {
+    User.findByIdAndUpdate(userId, updateUser, (err, userUpdated) => {
+        if (err) {
+            res.status(500).send({message: 'Error updating user data'})
+        } else {
+            if (! userUpdated) {
+                res.status(404).send({message: 'User not found'})
+            } else {
+                res.status(200).send({user: userUpdated})
+            }
+        }
+    });
+}
+
 module.exports = {
     saveUser,
-    loginUser
+    loginUser,
+    updateUser
 };
