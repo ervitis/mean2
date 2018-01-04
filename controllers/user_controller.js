@@ -30,6 +30,33 @@ function saveUser(req, res) {
 
 }
 
+function loginUser(req, res) {
+    const params = req.body;
+
+    User.findOne({email: params.email.toLocaleLowerCase()}, (err, user) => {
+        if (err) {
+            res.status(500).send({message: err})
+        } else {
+            if (! user) {
+                res.status(404).send({message: 'El usuario no existe'})
+            } else {
+                bcrypt.compare(params.password, user.password, (err, check) => {
+                    if (! check) {
+                        res.status(404).send({message: 'Logging error'})
+                    } else {
+                        if (params.gethash) {
+                            // returns the jwt token
+                        } else {
+                            res.status(200).send({user})
+                        }
+                    }
+                })
+            }
+        }
+    })
+}
+
 module.exports = {
-    saveUser
+    saveUser,
+    loginUser
 };

@@ -8,5 +8,6 @@ const userValidators = require('../models/validators/user');
 const apiUser = express.Router();
 
 apiUser.post('/user/save', validate(userValidators), UserController.saveUser);
+apiUser.post('/user/login', UserController.loginUser);
 
 module.exports = apiUser;
