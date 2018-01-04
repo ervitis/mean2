@@ -18,4 +18,23 @@ describe('Artist controller', () => {
             });
         done()
     });
+
+    it('POST save artist', (done) => {
+        apiPath = '/api/artist/save';
+        let fakeData = {
+            name: 'Extremoduro',
+            description: 'Rock',
+            image: 'extremoduro.png'
+        };
+
+        chai.request(app)
+            .post(apiPath)
+            .send(fakeData)
+            .end((err, res) => {
+                expect(res).to.be.json;
+                expect(res.name).to.be.equal('Extremoduro')
+            });
+
+        done()
+    })
 });
