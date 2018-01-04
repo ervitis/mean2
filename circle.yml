@@ -1,8 +1,3 @@
 machine:
   services:
     - docker
-
-test:
-  pre:
-    - bash system/docker-builders/mongodb.sh
-    - bash system/docker-runners/mongodb.sh &
