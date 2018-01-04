@@ -8,7 +8,7 @@ const Album = require('../models/album');
 const Song = require('../models/song');
 
 function getArtist(req, res) {
-
+    res.status(200).send({message: 'prueba artista'});
 }
 
 module.exports = {
