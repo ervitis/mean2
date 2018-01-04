@@ -17,7 +17,7 @@ describe('GET /user/login', () => {
 
     it('should response with a 200 code', (done) => {
         chai.request(app)
-            .get(apiPath)
+            .post(apiPath)
             .send(fakeData)
             .end((err, res) => {
                 expect(res).to.have.status(200);
@@ -27,7 +27,7 @@ describe('GET /user/login', () => {
 
     it('should return a json object', (done) => {
         chai.request(app)
-            .get(apiPath)
+            .post(apiPath)
             .send(fakeData)
             .end((err, res) => {
                 expect(res).to.be.json;
@@ -37,10 +37,26 @@ describe('GET /user/login', () => {
 
     it('should return the user object', (done) => {
         chai.request(app)
-            .get(apiPath)
+            .post(apiPath)
             .send(fakeData)
             .end((err, res) => {
                 expect(res.user.email).to.be.equal(fakeData.email)
+            });
+        done()
+    })
+
+    it('should return token if gethash is enable', (done) => {
+        let data = {
+            email: 'fake1@fake.com',
+            password: 'fakefake123',
+            gethash: true
+        };
+
+        chai.request(app)
+            .post(apiPath)
+            .send(fakeData)
+            .end((err, res) => {
+                expect(res.token).not.empty
             });
         done()
     })
