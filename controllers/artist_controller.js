@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const mongoosePaginate = require('mongoose-pagination');
 
 const Artist = require('../models/artist');
 const Album = require('../models/album');
@@ -44,7 +45,28 @@ function saveArtist(req, res) {
     })
 }
 
+function getArtists(req, res) {
+    const page = req.params.page ? req.params.page : 1;
+    const itemsPerPage = 5;
+
+    Artist.find().sort('name').paginate(page, itemsPerPage, (err, artists, totalItems) => {
+        if (err) {
+            res.status(500).send({err})
+        } else {
+            if (! artists) {
+                res.status(404).send({message: 'No artists'})
+            } else {
+                res.status(200).send({
+                    totalItems: totalItems,
+                    artists: artists
+                })
+            }
+        }
+    });
+}
+
 module.exports = {
     getArtist,
-    saveArtist
+    saveArtist,
+    getArtists
 };
