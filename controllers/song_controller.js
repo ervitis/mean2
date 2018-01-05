@@ -93,9 +93,26 @@ function updateSong(req, res) {
     });
 }
 
+function deleteSong(req, res) {
+    const songId = req.params.id;
+
+    Song.findByIdAndRemove(songId, (err, songDelete) => {
+        if (err) {
+            res.status(500).send({err})
+        } else {
+            if (! songDelete) {
+                res.status(404).send({message: 'Song not found'})
+            } else {
+                res.status(200).send({songDelete})
+            }
+        }
+    })
+}
+
 module.exports = {
     getSong,
     saveSong,
     getSongs,
-    updateSong
+    updateSong,
+    deleteSong
 };
