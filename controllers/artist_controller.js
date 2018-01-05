@@ -8,7 +8,19 @@ const Album = require('../models/album');
 const Song = require('../models/song');
 
 function getArtist(req, res) {
-    res.status(200).send({message: 'prueba artista'});
+    const artistId = req.params.id;
+
+    Artist.findById(artistId, (err, artist) => {
+        if (err) {
+            res.status(500).send({err});
+        } else {
+            if (! artist) {
+                res.status(404).send({message: 'Artist not found'});
+            } else {
+                res.status(200).send({artist});
+            }
+        }
+    });
 }
 
 function saveArtist(req, res) {

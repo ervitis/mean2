@@ -15,6 +15,7 @@ describe('Artist controller', () => {
             .get(apiPath)
             .end((err, res) => {
                 expect(res).to.have.status(200);
+                expect(res).to.be.json
             });
         done()
     });
