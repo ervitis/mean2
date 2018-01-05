@@ -109,10 +109,47 @@ function deleteSong(req, res) {
     })
 }
 
+function uploadFile(req, res) {
+    const songId = req.params.id;
+    const fileName = 'No file';
+
+    if (req.files) {
+        const filePath = req.files.file.path;
+        const fileName = filePath.split('/')[4];
+
+        if (fileName.endsWith('mp3')) {
+            Song.findByIdAndUpdate(songId, {file: fileName}, (err, songUpdate) => {
+                if (! songUpdate) {
+                    res.status(404).send({message: 'Error updating'})
+                } else {
+                    res.status(200).send({songUpdate})
+                }
+            })
+        }
+    } else {
+        res.status(200).send({message: 'No file uploaded'})
+    }
+}
+
+function getSongFile(req, res) {
+    const songFile = req.params.songFile;
+    const pathFile = '/tmp/uploads/songs/' + songFile;
+
+    fs.exists(pathFile, (e) => {
+        if (e) {
+            res.sendFile(path.resolve(pathFile))
+        } else {
+            res.status(200).send({message: 'File does not exists'})
+        }
+    })
+}
+
 module.exports = {
     getSong,
     saveSong,
     getSongs,
     updateSong,
-    deleteSong
+    deleteSong,
+    uploadFile,
+    getSongFile
 };
