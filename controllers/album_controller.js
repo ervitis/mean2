@@ -11,7 +11,7 @@ const Song = require('../models/song');
 function getAlbum(req, res) {
     const albumId = req.params.id;
 
-    Album.findById(albumId, (err, album) => {
+    Album.findById(albumId).populate({path: 'artist'}).exec((err, album) => {
         if (err) {
             res.status(500).send({err});
         } else {
@@ -60,7 +60,7 @@ function getAlbums(req, res) {
             } else {
                 res.status(200).send({
                     totalItems: totalItems,
-                    artists: albums
+                    albums: albums
                 })
             }
         }
