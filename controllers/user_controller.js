@@ -89,8 +89,6 @@ function uploadImage(req, res) {
         const filePath = req.files.image.path;
         const fileName = filePath.split('/')[4];
 
-        console.log(fileName);
-
         if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
             updateUserById(userId, {image: fileName}, res)
         } else {

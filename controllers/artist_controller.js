@@ -110,10 +110,47 @@ function deleteArtist(req, res) {
     })
 }
 
+function uploadImage(req, res) {
+    const artistId = req.params.id;
+    const fileName = 'No picture';
+
+    if (req.files) {
+        const filePath = req.files.image.path;
+        const fileName = filePath.split('/')[4];
+
+        if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
+            Artist.findByIdAndUpdate(artistId, {image: fileName}, (err, artistUpdate) => {
+                if (! artistUpdate) {
+                    res.status(404).send({message: 'Error updating'})
+                } else {
+                    res.status(200).send({artistUpdate})
+                }
+            })
+        }
+    } else {
+        res.status(200).send({message: 'No file uploaded'})
+    }
+}
+
+function getImageFile(req, res) {
+    const imageFile = req.params.imageFile;
+    const pathFile = '/tmp/uploads/artists/' + imageFile;
+
+    fs.exists(pathFile, (e) => {
+        if (e) {
+            res.sendFile(path.resolve(pathFile))
+        } else {
+            res.status(200).send({message: 'Image does not exist'})
+        }
+    });
+}
+
 module.exports = {
     getArtist,
     saveArtist,
     getArtists,
     updateArtist,
-    deleteArtist
+    deleteArtist,
+    uploadImage,
+    getImageFile
 };
