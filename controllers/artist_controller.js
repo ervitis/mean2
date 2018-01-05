@@ -65,8 +65,26 @@ function getArtists(req, res) {
     });
 }
 
+function updateArtist(req, res) {
+    const artistId = req.params.id;
+    const artist = req.body;
+
+    Artist.findByIdAndUpdate(artistId, artist, (err, artistUpdate) => {
+        if (err) {
+            res.status(500).send({err})
+        } else {
+            if (! artistUpdate) {
+                res.status(404).send({message: 'Artist not updated'})
+            } else {
+                res.status(200).send({artistUpdate})
+            }
+        }
+    })
+}
+
 module.exports = {
     getArtist,
     saveArtist,
-    getArtists
+    getArtists,
+    updateArtist
 };
