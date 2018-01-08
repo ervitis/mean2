@@ -66,19 +66,17 @@ function updateUser(req, res) {
     const userId = req.params.id;
     const update = req.body;
 
-    if (update.password) {
-        bcrypt.hash(update.password, null, null, (err, hash) => {
-            if (err) {
-                res.status(500).send({err})
+    User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+        if (err) {
+            res.status(500).send({message: 'Error updating user data'})
+        } else {
+            if (! userUpdated) {
+                res.status(404).send({message: 'User not found'})
             } else {
-                update.password = hash;
-
-                updateUserById(userId, update, res)
+                res.status(200).send({user: userUpdated})
             }
-        });
-    } else {
-        updateUserById(userId, update, res)
-    }
+        }
+    });
 }
 
 function uploadImage(req, res) {
@@ -90,7 +88,17 @@ function uploadImage(req, res) {
         const fileName = filePath.split('/')[4];
 
         if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
-            updateUserById(userId, {image: fileName}, res)
+            User.findByIdAndUpdate(userId, {image: fileName}, (err, userUpdated) => {
+                if (err) {
+                    res.status(500).send({message: 'Error updating user data'})
+                } else {
+                    if (! userUpdated) {
+                        res.status(404).send({message: 'User not found'})
+                    } else {
+                        res.status(200).send({image: fileName, user: userUpdated})
+                    }
+                }
+            });
         } else {
             res.status(200).send({message: 'Extension not supported'})
         }
@@ -100,17 +108,7 @@ function uploadImage(req, res) {
 }
 
 function updateUserById(userId, updateUser, res) {
-    User.findByIdAndUpdate(userId, updateUser, (err, userUpdated) => {
-        if (err) {
-            res.status(500).send({message: 'Error updating user data'})
-        } else {
-            if (! userUpdated) {
-                res.status(404).send({message: 'User not found'})
-            } else {
-                res.status(200).send({user: userUpdated})
-            }
-        }
-    });
+
 }
 
 function getImageFile(req, res) {
