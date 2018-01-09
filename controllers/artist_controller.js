@@ -116,14 +116,19 @@ function uploadImage(req, res) {
 
     if (req.files) {
         const filePath = req.files.image.path;
-        const fileName = filePath.split('/')[4];
+        const fileName = filePath.split('/')[2];
 
         if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
             Artist.findByIdAndUpdate(artistId, {image: fileName}, (err, artistUpdate) => {
-                if (! artistUpdate) {
-                    res.status(404).send({message: 'Error updating'})
+                if (err) {
+                    console.log(err);
+                    res.status(500).send({err});
                 } else {
-                    res.status(200).send({artistUpdate})
+                    if (! artistUpdate) {
+                        res.status(404).send({message: 'Error updating'})
+                    } else {
+                        res.status(200).send({artistUpdate})
+                    }
                 }
             })
         }
@@ -134,7 +139,7 @@ function uploadImage(req, res) {
 
 function getImageFile(req, res) {
     const imageFile = req.params.imageFile;
-    const pathFile = '/tmp/uploads/artists/' + imageFile;
+    const pathFile = './uploads/artists/' + imageFile;
 
     fs.exists(pathFile, (e) => {
         if (e) {

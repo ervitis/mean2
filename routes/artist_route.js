@@ -4,7 +4,7 @@ const express = require('express');
 const ArtistController = require('../controllers/artist_controller');
 const api = express.Router();
 const multipart = require('connect-multiparty');
-const md_upload = multipart({uploadDir: '/tmp/uploads/artists'});
+const md_upload = multipart({uploadDir: './uploads/artists'});
 
 const md_auth = require('../middlewares/authenticated');
 

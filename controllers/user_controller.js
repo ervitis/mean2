@@ -85,7 +85,7 @@ function uploadImage(req, res) {
 
     if (req.files) {
         const filePath = req.files.image.path;
-        const fileName = filePath.split('/')[4];
+        const fileName = filePath.split('/')[2];
 
         if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
             User.findByIdAndUpdate(userId, {image: fileName}, (err, userUpdated) => {
@@ -113,7 +113,7 @@ function updateUserById(userId, updateUser, res) {
 
 function getImageFile(req, res) {
     const imageFile = req.params.imageFile;
-    const pathFile = '/tmp/uploads/users/';
+    const pathFile = './uploads/users/';
 
     fs.exists(pathFile + imageFile, (e) => {
         if (e) {

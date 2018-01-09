@@ -130,7 +130,7 @@ function uploadImage(req, res) {
 
 function getImageFile(req, res) {
     const imageFile = req.params.imageFile;
-    const pathFile = '/tmp/uploads/artists/' + imageFile;
+    const pathFile = './uploads/albums/' + imageFile;
 
     fs.exists(pathFile, (e) => {
         if (e) {

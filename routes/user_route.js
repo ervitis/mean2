@@ -9,7 +9,7 @@ const apiUser = express.Router();
 
 const md_auth = require('../middlewares/authenticated');
 const multipart = require('connect-multiparty');
-const md_upload = multipart({uploadDir: '/tmp/uploads/users'});
+const md_upload = multipart({uploadDir: './uploads/users'});
 
 apiUser.post('/user/save', validate(userValidators), UserController.saveUser);
 apiUser.post('/user/login', UserController.loginUser);
