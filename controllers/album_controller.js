@@ -107,19 +107,19 @@ function deleteAlbum(req, res) {
 }
 
 function uploadImage(req, res) {
-    const artistId = req.params.id;
+    const albumId = req.params.id;
     const fileName = 'No picture';
 
     if (req.files) {
         const filePath = req.files.image.path;
-        const fileName = filePath.split('/')[4];
+        const fileName = filePath.split('/')[2];
 
         if (fileName.endsWith('png') || fileName.endsWith('jpg')) {
-            Artist.findByIdAndUpdate(artistId, {image: fileName}, (err, artistUpdate) => {
-                if (! artistUpdate) {
+            Album.findByIdAndUpdate(albumId, {image: fileName}, (err, albumUpdate) => {
+                if (! albumUpdate) {
                     res.status(404).send({message: 'Error updating'})
                 } else {
-                    res.status(200).send({artistUpdate})
+                    res.status(200).send({albumUpdate})
                 }
             })
         }

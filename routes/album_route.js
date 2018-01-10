@@ -14,6 +14,6 @@ api.get('/albums/:page?', md_auth.ensureAuth, AlbumController.getAlbums);
 api.put('/album/:id', md_auth.ensureAuth, AlbumController.updateAlbum);
 api.delete('/album/:id', md_auth.ensureAuth, AlbumController.deleteAlbum);
 api.post('/album/image/:id', [md_auth.ensureAuth, md_upload], AlbumController.uploadImage);
-api.get('/album/image/:id', md_auth.ensureAuth, AlbumController.getImageFile);
+api.get('/album/image/:imageFile', AlbumController.getImageFile);
 
 module.exports = api;
